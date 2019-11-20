@@ -1,0 +1,28 @@
+menu:
+  guide: 指南
+
+header:
+  translations: "切换语言"
+
+index:
+  getStart: 开始使用
+  feature1:
+    title: 多维度
+    description: 多维度
+  feature2:
+    title:  完全开源
+    description: 完全开源
+  feature3:
+    title: 高度定制
+    description: 高度定制
+  feature4:
+    title: 定制化报表
+    description: 定制化报表
+
+page:
+  contents: 目录
+  back_to_top: 回到顶部
+  improve: 改进本文
+  prev: 上一页
+  next: 下一页
+  last_updated: 上次更新：%s

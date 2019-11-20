@@ -1,0 +1,28 @@
+menu:
+  guide: Guide
+
+header:
+  translations: "Switch Language"
+
+index:
+  getStart: Get Start
+  feature1:
+    title: Multiple Dimensions
+    description: Multiple Dimensions
+  feature2:
+    title: Open Source
+    description: Open Source
+  feature3:
+    title: Highly Customized
+    description: Highly Customized
+  feature4:
+    title: Custom Charts
+    description: Custom Charts
+
+page:
+  contents: Content
+  back_to_top: Top
+  improve: Improve Paper
+  prev: Previous Page
+  next: Next Page
+  last_updated: Last Update：%s

@@ -1,0 +1,32 @@
+title: Athena
+subtitle: "Athena (incubating) is a high performance user behavior analysis system."
+description: "Athena (incubating) is a high performance user behavior analysis system."
+language: en
+timezone: UTC
+url: https://ikathena.github.io/athena
+root: /
+archive_dir: news
+permalink: news/:year/:month/:day/:title/
+new_post_name: :year-:month-:day-:title.md
+post_asset_folder: true
+highlight:
+  enable: true
+  line_number: false
+per_page: 0
+
+theme: navy
+
+less:
+  compress: true
+
+skip_render:
+  - ci.yml
+  - README.md
+
+deploy:
+  type: git
+  repo: https://github.com/IKAthena/incubator-athena
+  branch: master
+
+author: Athena
+github: IKAthena/incubator-athena
