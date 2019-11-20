@@ -25,7 +25,7 @@ skip_render:
 
 deploy:
   type: git
-  repo: https://github.com/IKAthena/incubator-athena
+  repo: https://github.com/IKAthena/athena
   branch: master
 
 author: Athena
