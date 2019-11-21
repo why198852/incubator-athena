@@ -76,12 +76,13 @@ hexo.extend.helper.register('canonical_url', function (lang) {
 hexo.extend.helper.register('url_for_lang', function (path) {
     var lang = this.page.lang;
     var url = this.url_for(path);
-    if (url[0] === '/') url = '/' + lang + url;
-    return url;
+    // if (url[0] === '/') url = '/' + lang + url;
+    if (url[0] === '/') url = '/' + lang;
+    return this.config.url + url;
 });
 
 hexo.extend.helper.register('raw_link', function (path) {
-    return 'https://github.com/IKAthena/incubator-athena/docs/edit/master/source/' + path;
+    return 'https://github.com/InkeIO/incubator-athena/edit/master/docs/source/' + path;
 });
 
 hexo.extend.helper.register('page_anchor', function (str) {
@@ -135,5 +136,5 @@ hexo.extend.helper.register('index_link', function (url) {
     if (!url) {
         url = '/';
     }
-    return `/${this.page.lang}${url}`;
+    return `${this.page.lang}${url}`;
 });

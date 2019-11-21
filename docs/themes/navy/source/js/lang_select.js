@@ -6,7 +6,8 @@
         var canonical = this.dataset.canonical;
         // if (lang === 'en') lang = '';
         if (lang) lang += '/';
-        location.href = '/' + lang + canonical;
+        console.log(canonical)
+        location.href = 'http://athena.incubator.inke.io/' + lang + canonical;
     }
 
     document.getElementById('lang-select').addEventListener('change', changeLang);

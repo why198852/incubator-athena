@@ -4,3 +4,9 @@
 
 # Maven
 target
+
+# docs
+docs/public
+docs/db.json
+docs/.deploy_git
+docs/node_modules
