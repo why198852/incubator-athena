@@ -15,10 +15,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.util.DigestUtils;
 
 @Configuration
 @EnableWebSecurity
@@ -29,20 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                System.out.println(charSequence.toString());
-                return DigestUtils.md5DigestAsHex(charSequence.toString().getBytes());
-            }
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
 
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                String encode = DigestUtils.md5DigestAsHex(charSequence.toString().getBytes());
-                boolean res = s.equals(encode);
-                return res;
-            }
-        });
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -59,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JwtTokenFilter authenticationTokenFilterBean() throws Exception {
+    public JwtTokenFilter authenticationTokenFilterBean() {
         return new JwtTokenFilter();
     }
 

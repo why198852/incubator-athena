@@ -24,7 +24,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    JwtTokenTemplate jwtTokenTemplate;
+    private JwtTokenTemplate jwtTokenTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {

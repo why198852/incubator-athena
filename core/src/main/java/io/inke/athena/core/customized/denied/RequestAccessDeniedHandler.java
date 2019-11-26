@@ -1,6 +1,7 @@
 package io.inke.athena.core.customized.denied;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.inke.athena.common.response.ResponseCommon;
 import io.inke.athena.core.customized.error.ErrorExceptionInfo;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -28,6 +29,6 @@ public class RequestAccessDeniedHandler implements AccessDeniedHandler {
         errorExceptionInfo.setErrorReasonPhrase("Access denied");
         errorExceptionInfo.setErrorStackTrace(accessDeniedException.toString());
         errorExceptionInfo.setRemoteClient(request.getRemoteAddr());
-        response.getWriter().write(new ObjectMapper().writeValueAsString(errorExceptionInfo));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(ResponseCommon.error(errorExceptionInfo)));
     }
 }

@@ -1,6 +1,7 @@
 package io.inke.athena.core.customized.denied;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.inke.athena.common.response.ResponseCommon;
 import io.inke.athena.core.customized.error.ErrorExceptionInfo;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -27,6 +28,6 @@ public class RequestAuthenticationEntryPoint implements AuthenticationEntryPoint
         errorExceptionInfo.setErrorReasonPhrase("Access denied");
         errorExceptionInfo.setErrorStackTrace(accessDeniedException.toString());
         errorExceptionInfo.setRemoteClient(request.getRemoteAddr());
-        response.getWriter().write(new ObjectMapper().writeValueAsString(errorExceptionInfo));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(ResponseCommon.error(errorExceptionInfo)));
     }
 }

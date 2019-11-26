@@ -1,5 +1,8 @@
 package io.inke.athena.core.controller;
 
+import io.inke.athena.common.response.ResponseCommon;
+import io.inke.athena.core.param.AuthenticationParam;
+import io.inke.athena.core.response.AuthenticationResponse;
 import io.inke.athena.core.security.UserDetailsServiceImpl;
 import io.inke.athena.core.security.jwt.JwtTokenTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,14 +31,12 @@ public class AuthenticationController {
     private UserDetailsServiceImpl userDetailsService;
 
     @PostMapping(value = "login")
-    public String login(String username, String password) throws AuthenticationException {
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication authentication = authenticationManager.authenticate(upToken);
+    public ResponseCommon<String> login(@RequestBody AuthenticationParam body) throws AuthenticationException {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(body.getUsername(), body.getPassword());
+        Authentication authentication = authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        String token = jwtTokenTemplate.generateToken(userDetails);
-        // 登录成功会返回Token给用户
-        return token;
+        UserDetails userDetails = userDetailsService.loadUserByUsername(body.getUsername());
+        return ResponseCommon.success(new AuthenticationResponse(jwtTokenTemplate.generateToken(userDetails), body.getUsername()));
     }
 
 }

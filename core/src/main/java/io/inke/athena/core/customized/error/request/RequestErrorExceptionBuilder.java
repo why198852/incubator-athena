@@ -1,6 +1,7 @@
 package io.inke.athena.core.customized.error.request;
 
 import io.inke.athena.common.exception.ExceptionCommon;
+import io.inke.athena.common.response.ResponseCommon;
 import io.inke.athena.core.customized.error.ErrorExceptionInfo;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -28,14 +29,14 @@ public class RequestErrorExceptionBuilder implements HandlerExceptionResolver, O
     /**
      * build error info
      */
-    public ErrorExceptionInfo getErrorInfo(HttpServletRequest request) {
+    public ResponseCommon<ErrorExceptionInfo> getErrorInfo(HttpServletRequest request) {
         return getErrorInfo(request, ExceptionCommon.getError(request));
     }
 
     /**
      * build error info
      */
-    public ErrorExceptionInfo getErrorInfo(HttpServletRequest request, Throwable error) {
+    public ResponseCommon<ErrorExceptionInfo> getErrorInfo(HttpServletRequest request, Throwable error) {
         ErrorExceptionInfo errorExceptionInfo = new ErrorExceptionInfo();
         errorExceptionInfo.setErrorTime(LocalDateTime.now().toString());
         errorExceptionInfo.setErrorUrl(request.getRequestURL().toString());
@@ -44,7 +45,7 @@ public class RequestErrorExceptionBuilder implements HandlerExceptionResolver, O
         errorExceptionInfo.setErrorReasonPhrase(error.toString());
         errorExceptionInfo.setErrorStackTrace(ExceptionCommon.getStackTraceInfo(error, isIncludeStackTrace(request)));
         errorExceptionInfo.setRemoteClient(request.getRemoteAddr());
-        return errorExceptionInfo;
+        return ResponseCommon.error(errorExceptionInfo);
     }
 
     /**
