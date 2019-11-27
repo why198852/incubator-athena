@@ -19,6 +19,10 @@
             <artifactId>athena-common</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.inke.athena</groupId>
+            <artifactId>athena-support</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>

@@ -13,4 +13,19 @@
     <artifactId>athena-support</artifactId>
     <name>Athena Support Module</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.inke.athena</groupId>
+            <artifactId>athena-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
