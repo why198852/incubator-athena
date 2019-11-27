@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "user")
 public class UserController {
@@ -19,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(value = "register")
-    public ResponseCommon<UserModel> register(@RequestBody UserParam param) {
+    public ResponseCommon<Integer> register(@Valid @RequestBody UserParam param) {
         UserModel user = new UserModel();
         BeanUtils.copyProperties(param, user);
         return this.userService.addObject(user);

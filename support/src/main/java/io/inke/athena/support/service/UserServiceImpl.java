@@ -1,9 +1,11 @@
 package io.inke.athena.support.service;
 
+import io.inke.athena.common.response.ResponseCommon;
 import io.inke.athena.support.mapper.UserMapper;
 import io.inke.athena.support.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -11,8 +13,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public UserModel addObject(UserModel model) {
-        return userMapper.insertModel(model);
+    @Transactional
+    public ResponseCommon<Integer> addObject(UserModel model) {
+        if (this.userMapper.insertModel(model) > 0) {
+            return ResponseCommon.success(model.getId());
+        } else {
+            return ResponseCommon.success(0);
+        }
+    }
+
+    @Override
+    public ResponseCommon<UserModel> getByUserName(String userName) {
+        return ResponseCommon.success(this.userMapper.findByUserName(userName));
     }
 
 }

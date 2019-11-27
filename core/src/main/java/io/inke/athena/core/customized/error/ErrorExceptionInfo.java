@@ -16,7 +16,7 @@ public class ErrorExceptionInfo {
     private String errorType; // error type
     private String errorStackTrace; // error stack info
     private int errorStatusCode; // error code
-    private String errorReasonPhrase; // error reason
+    private Object errorReasonPhrase; // error reason
     private String remoteClient; // remote client
 
 }

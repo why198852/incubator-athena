@@ -4,6 +4,6 @@ import io.inke.athena.common.response.ResponseCommon;
 
 public interface BaseService<T> {
 
-    ResponseCommon<T> addObject(T object);
+    ResponseCommon<Integer> addObject(T object);
 
 }
