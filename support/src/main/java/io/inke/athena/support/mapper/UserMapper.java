@@ -17,11 +17,16 @@ public interface UserMapper extends BaseMapper<UserModel> {
      * @param userName user name
      * @return user model
      */
-    @Results(id = "userModelResults", value = {
-            @Result(property = "id", column = "id", id = true),
-            @Result(property = "userName", column = "username")
-    })
-    @Select(value = "SELECT id, username FROM user WHERE username = #{userName}")
+    @ResultMap(value = "userRequiredResults")
+    @Select(value = "SELECT id, username, password FROM user WHERE username = #{userName}")
     UserModel findByUserName(@Param(value = "userName") String userName);
+
+    @Results(id = "userRequiredResults", value = {
+            @Result(property = "id", column = "id", id = true),
+            @Result(property = "userName", column = "username"),
+            @Result(property = "password", column = "password")
+    })
+    @Select(value = "SELECT id, username, password FROM user WHERE username = #{userName} AND password = #{password}")
+    UserModel findByUserNameAndPassword(@Param(value = "userName") String userName, @Param(value = "password") String password);
 
 }

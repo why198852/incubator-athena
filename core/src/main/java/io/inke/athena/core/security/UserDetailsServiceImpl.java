@@ -1,22 +1,34 @@
 package io.inke.athena.core.security;
 
+import io.inke.athena.common.response.ResponseCommon;
+import io.inke.athena.support.model.UserModel;
+import io.inke.athena.support.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
+import java.util.Collections;
 
 @Service
+@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        if (userName.equals("admin")) {
-            return new User("admin", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-                    new ArrayList<>());
+        log.debug("validate user <{}> from database", userName);
+        ResponseCommon<UserModel> response = this.userService.getByUserName(userName);
+        if (!ObjectUtils.isEmpty(response.getDetail())) {
+            return new User(response.getDetail().getUserName(), response.getDetail().getPassword(), Collections.emptyList());
         }
-        return null;
+        log.debug("user <{}> not found from database", userName);
+        throw new UsernameNotFoundException(String.format("this user %s not found", userName));
     }
 }

@@ -31,4 +31,5 @@ public class RequestAccessDeniedHandler implements AccessDeniedHandler {
         errorExceptionInfo.setRemoteClient(request.getRemoteAddr());
         response.getWriter().write(new ObjectMapper().writeValueAsString(ResponseCommon.error(errorExceptionInfo)));
     }
+    
 }
