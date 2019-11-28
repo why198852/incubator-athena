@@ -2,7 +2,7 @@
   <div class="inner">
     <h2 id="banner-title">{{ page.subtitle }}</h2>
     <div id="banner-start">
-      <span id="banner-start-command">{{ __('index.getStart') }}</span><a id="banner-start-link" href="docs/"><i class="fa fa-arrow-right"></i></a>
+      <span id="banner-start-command">{{ __('index.getStart') }}</span><a id="banner-start-link" href="usage/"><i class="fa fa-arrow-right"></i></a>
     </div>
     {#
       <div id="banner-share">{{ partial('partial/share') }}</div>
@@ -54,7 +54,10 @@
         <li class="intro-cmd-item"></li>
       </ul>
       <div id="intro-get-started-wrap">
-        <a href="{{ index_link('/docs/intro/quickstart.html') }}" id="intro-get-started-link">{{ __('index.getStart') }}</a>
+        <!--
+        <a href="{{ index_link('/usage/') }}" id="intro-get-started-link">{{ __('index.getStart') }}</a>
+        -->
+        <a href="usage/" id="intro-get-started-link">{{ __('index.getStart') }}</a>
       </div>
     </div>
   </div>

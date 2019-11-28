@@ -1,6 +1,11 @@
 menu:
   guide: Guide
   design: Design
+  usage: Documentation
+
+sidebar:
+  usage:
+    usage: Get Start
 
 header:
   translations: "Switch Language"

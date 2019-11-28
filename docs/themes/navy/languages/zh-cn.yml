@@ -1,6 +1,11 @@
 menu:
   guide: 指南
   design: 设计
+  usage: 文档
+
+sidebar:
+  usage:
+    usage: 开始使用
 
 header:
   translations: "切换语言"
