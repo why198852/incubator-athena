@@ -24,9 +24,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public ResponseCommon<UserModel> getByUserName(String userName) {
-        return ResponseCommon.success(this.userMapper.findByUserName(userName));
+    public ResponseCommon<UserModel> getByName(CharSequence source) {
+        return ResponseCommon.success(this.userMapper.findByUserName(source.toString()));
     }
 
     @Override

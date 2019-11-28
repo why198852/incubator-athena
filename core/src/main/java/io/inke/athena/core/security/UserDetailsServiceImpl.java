@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         log.debug("validate user <{}> from database", userName);
-        ResponseCommon<UserModel> response = this.userService.getByUserName(userName);
+        ResponseCommon<UserModel> response = this.userService.getByName(userName);
         if (!ObjectUtils.isEmpty(response.getDetail())) {
             return new User(response.getDetail().getUserName(), response.getDetail().getPassword(), Collections.emptyList());
         }
