@@ -14,6 +14,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @SpringBootTest(
@@ -55,6 +57,19 @@ public class AppmetaMapperTest implements BaseTest {
         AppmetaModel temp = this.appmetaMapper.findByName(value);
         System.out.println(temp.toString());
         Assert.assertNotNull(temp);
+    }
+
+    @Test
+    public void testFindById() {
+        AppmetaModel temp = this.appmetaMapper.findById(1L);
+        System.out.println(temp.toString());
+        Assert.assertNotNull(temp);
+    }
+
+    @Test
+    public void testFindAllByUserId() {
+        List<AppmetaModel> modelList = this.appmetaMapper.findAllByUserId(1L);
+        modelList.forEach(v -> System.out.println(v.toString()));
     }
 
 }

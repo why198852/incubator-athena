@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Data
 @ToString
 @AllArgsConstructor
@@ -16,5 +18,7 @@ public class UserModel {
     private Integer id;
     private String userName;
     private String password;
+
+    private List<AppmetaModel> appmetas; // appmeta list
 
 }

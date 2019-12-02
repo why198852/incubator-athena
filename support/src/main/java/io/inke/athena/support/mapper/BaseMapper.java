@@ -1,5 +1,7 @@
 package io.inke.athena.support.mapper;
 
+import java.util.List;
+
 public interface BaseMapper<T> {
 
     Integer insertModel(T object);

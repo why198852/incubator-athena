@@ -14,4 +14,12 @@ public interface BaseService<T> {
      */
     ResponseCommon<T> getByName(CharSequence name);
 
+    /**
+     * get model by id
+     *
+     * @param id source id
+     * @return user info model
+     */
+    ResponseCommon<T> getById(Long id);
+
 }

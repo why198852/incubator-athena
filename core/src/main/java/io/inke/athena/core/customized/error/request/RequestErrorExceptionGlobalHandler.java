@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,21 +32,6 @@ public class RequestErrorExceptionGlobalHandler {
 
     @Autowired
     private RequestErrorExceptionBuilder errorInfoBuilder;
-
-    /**
-     * handler exception
-     *
-     * @param request client request info
-     * @param error   request exception information
-     * @return alert json
-     * @see ErrorExceptionInfo
-     */
-    @ExceptionHandler(Exception.class)
-    @ResponseBody
-    public Object exceptionHandler(HttpServletRequest request, Throwable error) {
-        // only support rest api
-        return errorInfoBuilder.getErrorInfo(request, error);
-    }
 
     /**
      * Check the exception handling method for method parameters
@@ -93,6 +80,40 @@ public class RequestErrorExceptionGlobalHandler {
         errorExceptionInfo.setErrorReasonPhrase(exception.getLocalizedMessage());
         errorExceptionInfo.setRemoteClient(request.getRemoteAddr());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseCommon.error(errorExceptionInfo));
+    }
+
+    /**
+     * handler exception
+     *
+     * @param request client request info
+     * @param error   request exception information
+     * @return alert json
+     * @see ErrorExceptionInfo
+     */
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public Object exceptionHandler(HttpServletRequest request, Throwable error) {
+        if (error instanceof HttpMessageNotReadableException) {
+            return handlerException(error, request);
+        }
+        if (error instanceof ValidationException) {
+            return handlerException(error.getCause(), request);
+        }
+        // only support rest api
+        return errorInfoBuilder.getErrorInfo(request, error);
+    }
+
+    private ResponseEntity<ResponseCommon> handlerException(Throwable exception, HttpServletRequest request) {
+        log.debug("begin resolve argument exception");
+        ErrorExceptionInfo errorExceptionInfo = new ErrorExceptionInfo();
+        errorExceptionInfo.setErrorTime(LocalDateTime.now().toString());
+        errorExceptionInfo.setErrorUrl(request.getRequestURL().toString());
+        errorExceptionInfo.setErrorType(HttpStatus.BAD_REQUEST.getReasonPhrase());
+        errorExceptionInfo.setErrorStatusCode(HttpStatus.BAD_REQUEST.value());
+        errorExceptionInfo.setErrorReasonPhrase(exception.getMessage());
+        errorExceptionInfo.setRemoteClient(request.getRemoteAddr());
+        errorExceptionInfo.setErrorStackTrace(exception.toString());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseCommon.error(errorExceptionInfo));
     }
 
 }

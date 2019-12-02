@@ -55,4 +55,12 @@ public class AppmetaServiceTest implements BaseTest {
         Assert.assertNotNull(this.appmetaService.getByName(value).getDetail());
     }
 
+
+    @Test
+    public void testGetById() {
+        AppmetaModel temp = this.appmetaService.getById(1L).getDetail();
+        System.out.println(temp.toString());
+        Assert.assertNotNull(temp);
+    }
+
 }

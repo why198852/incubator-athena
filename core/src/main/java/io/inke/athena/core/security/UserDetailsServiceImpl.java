@@ -23,12 +23,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        log.debug("validate user <{}> from database", userName);
-        ResponseCommon<UserModel> response = this.userService.getByName(userName);
+        String[] userNameAndId = userName.split(String.valueOf(Character.LINE_SEPARATOR));
+        log.debug("validate user <{}> from database", userNameAndId[0]);
+        ResponseCommon<UserModel> response = this.userService.getByName(userNameAndId[0]);
         if (!ObjectUtils.isEmpty(response.getDetail())) {
-            return new User(response.getDetail().getUserName(), response.getDetail().getPassword(), Collections.emptyList());
+            return new User(String.join(String.valueOf(Character.LINE_SEPARATOR), response.getDetail().getUserName(), String.valueOf(response.getDetail().getId())),
+                    response.getDetail().getPassword(),
+                    Collections.emptyList());
         }
-        log.debug("user <{}> not found from database", userName);
-        throw new UsernameNotFoundException(String.format("this user %s not found", userName));
+        log.debug("user <{}> not found from database", userNameAndId[0]);
+        throw new UsernameNotFoundException(String.format("this user %s not found", userNameAndId[0]));
     }
 }

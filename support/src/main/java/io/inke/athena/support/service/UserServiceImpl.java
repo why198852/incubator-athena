@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ResponseCommon<UserModel> getById(Long id) {
+        return ResponseCommon.success(this.userMapper.findById(id));
+    }
+
+    @Override
     public ResponseCommon<UserModel> getByUserNameAndPassword(String userName, String password) {
         return ResponseCommon.success(this.userMapper.findByUserNameAndPassword(userName, password));
     }
