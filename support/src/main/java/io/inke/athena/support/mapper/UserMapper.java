@@ -29,4 +29,11 @@ public interface UserMapper extends BaseMapper<UserModel> {
     @Select(value = "SELECT id, username, password FROM user WHERE username = #{userName} AND password = #{password}")
     UserModel findByUserNameAndPassword(@Param(value = "userName") String userName, @Param(value = "password") String password);
 
+    @Results(id = "userRequiredResultsNotPassword", value = {
+            @Result(property = "id", column = "id", id = true),
+            @Result(property = "userName", column = "username")
+    })
+    @Select(value = "SELECT id, username FROM user WHERE id = #{id}")
+    UserModel findById(Long id);
+
 }

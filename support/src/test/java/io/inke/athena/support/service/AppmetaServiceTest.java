@@ -3,6 +3,7 @@ package io.inke.athena.support.service;
 import io.inke.athena.support.ApplicationTest;
 import io.inke.athena.support.BaseTest;
 import io.inke.athena.support.model.AppmetaModel;
+import io.inke.athena.support.model.UserModel;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,7 +35,9 @@ public class AppmetaServiceTest implements BaseTest {
         appmeta.setCode(value);
         appmeta.setDisplayName(value);
         appmeta.setToken(value);
-        appmeta.setUserId(1);
+        UserModel user = new UserModel();
+        user.setId(1);
+        appmeta.setUser(user);
     }
 
     @After

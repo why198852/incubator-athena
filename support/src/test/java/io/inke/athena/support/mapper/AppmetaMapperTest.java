@@ -3,6 +3,7 @@ package io.inke.athena.support.mapper;
 import io.inke.athena.support.ApplicationTest;
 import io.inke.athena.support.BaseTest;
 import io.inke.athena.support.model.AppmetaModel;
+import io.inke.athena.support.model.UserModel;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,7 +35,9 @@ public class AppmetaMapperTest implements BaseTest {
         appmeta.setCode(value);
         appmeta.setDisplayName(value);
         appmeta.setToken(value);
-        appmeta.setUserId(1);
+        UserModel user = new UserModel();
+        user.setId(1);
+        appmeta.setUser(user);
     }
 
     @After
@@ -49,7 +52,9 @@ public class AppmetaMapperTest implements BaseTest {
 
     @Test
     public void testFindByName() {
-        Assert.assertNotNull(this.appmetaMapper.findByName(value));
+        AppmetaModel temp = this.appmetaMapper.findByName(value);
+        System.out.println(temp.toString());
+        Assert.assertNotNull(temp);
     }
 
 }

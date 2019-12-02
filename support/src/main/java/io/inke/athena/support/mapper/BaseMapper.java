@@ -12,4 +12,12 @@ public interface BaseMapper<T> {
      */
     T findByName(CharSequence name);
 
+    /**
+     * find model by id
+     *
+     * @param id source id
+     * @return model
+     */
+    T findById(Long id);
+
 }

@@ -26,6 +26,7 @@ public class AppmetaModel {
     private Date modifyTime; // last modfiy time
     private Boolean deleted; // delete status
     private Boolean locked; // lock status
-    private Integer userId; // user id
+
+    private UserModel user; // user info
 
 }

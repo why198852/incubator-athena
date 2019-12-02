@@ -9,6 +9,9 @@ create table user (
 )
     default charset 'utf8';
 
+insert into user (userName, password)
+values ('admin', '$2a$10$HKt780e2WVSxTmrxfNQhMun5VAQrf7i0fCSA4pbF5JiJC/ymJvDgK');
+
 drop table if exists appmeta;
 create table appmeta (
     id          int(20) auto_increment comment 'primary key, unique id',

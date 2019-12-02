@@ -41,6 +41,9 @@ public class AppmetaProvider {
             if (!ObjectUtils.isEmpty(model.getLocked())) {
                 VALUES(String.join(".", tableName, "locked"), "#{locked}");
             }
+            if (!ObjectUtils.isEmpty(model.getUser()) || !ObjectUtils.isEmpty(model.getUser().getId())) {
+                VALUES(String.join(".", tableName, "userId"), String.valueOf(model.getUser().getId()));
+            }
         }}.toString();
     }
 
