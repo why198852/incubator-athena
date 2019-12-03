@@ -2,10 +2,16 @@ menu:
   guide: Guide
   design: Design
   usage: Documentation
+  api: API
 
 sidebar:
   usage:
     usage: Get Start
+  api:
+    overview: Overview
+    appmeta: Appmeta
+    golbal: Golbal
+    golbal_security: Security
 
 header:
   translations: "Switch Language"

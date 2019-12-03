@@ -75,11 +75,11 @@ public class RequestErrorExceptionGlobalHandler {
         ErrorExceptionInfo errorExceptionInfo = new ErrorExceptionInfo();
         errorExceptionInfo.setErrorTime(LocalDateTime.now().toString());
         errorExceptionInfo.setErrorUrl(request.getRequestURL().toString());
-        errorExceptionInfo.setErrorType(HttpStatus.NOT_FOUND.getReasonPhrase());
-        errorExceptionInfo.setErrorStatusCode(HttpStatus.NOT_FOUND.value());
+        errorExceptionInfo.setErrorType(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        errorExceptionInfo.setErrorStatusCode(HttpStatus.UNAUTHORIZED.value());
         errorExceptionInfo.setErrorReasonPhrase(exception.getLocalizedMessage());
         errorExceptionInfo.setRemoteClient(request.getRemoteAddr());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseCommon.error(errorExceptionInfo));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseCommon.error(errorExceptionInfo));
     }
 
     /**
